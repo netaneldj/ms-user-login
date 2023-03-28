@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.security.GeneralSecurityException;
+
 @Mapper(uses = IPhoneMapper.class)
 public interface IUserMapper {
     IUserMapper INSTANCE = Mappers.getMapper( IUserMapper.class );
@@ -17,9 +19,11 @@ public interface IUserMapper {
     @Mapping(target = "lastLogin", expression = "java(java.time.Instant.now())")
     @Mapping(target = "token", expression = "java(com.jamilis.login.utils.JwtUtils.generateJwt(dto.getEmail()))")
     @Mapping(target = "isActive", constant = "true")
-    UserEntity mapToEntity(SignUpRequestDto dto);
+    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.encrypt(dto.getPassword()))")
+    UserEntity mapToEntity(SignUpRequestDto dto) throws GeneralSecurityException;
 
     SignUpResponseDto mapToSignUpResponse(UserEntity entity);
 
-    LoginResponseDto mapToLoginResponse(UserEntity entity);
+    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.decrypt(entity.getPassword()))")
+    LoginResponseDto mapToLoginResponse(UserEntity entity) throws GeneralSecurityException;
 }
