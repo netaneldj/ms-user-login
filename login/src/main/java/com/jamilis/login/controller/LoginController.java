@@ -1,9 +1,6 @@
 package com.jamilis.login.controller;
 
-import com.jamilis.login.dto.LoginRequestDto;
-import com.jamilis.login.dto.LoginResponseDto;
-import com.jamilis.login.dto.SignUpRequestDto;
-import com.jamilis.login.dto.SignUpResponseDto;
+import com.jamilis.login.dto.*;
 import com.jamilis.login.exception.UserAlreadyExistException;
 import com.jamilis.login.exception.UserNotFoundException;
 import com.jamilis.login.service.ILoginService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.time.Instant;
 
 @RestController
 public class LoginController {
@@ -31,11 +29,11 @@ public class LoginController {
             SignUpResponseDto responseDto = service.signUpUser(dto);
             return new ResponseEntity<SignUpResponseDto>(responseDto, HttpStatus.CREATED);
         } catch (UserAlreadyExistException e) {
-            return new ResponseEntity<UserAlreadyExistException>(e, HttpStatus.NOT_FOUND);
-        } catch (GeneralSecurityException e){
-            return new ResponseEntity<GeneralSecurityException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (UnsupportedEncodingException e){
-            return new ResponseEntity<UnsupportedEncodingException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<ErrorDto>(new ErrorDto(Instant.now(), HttpStatus.BAD_REQUEST.value(),
+                    e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (GeneralSecurityException | UnsupportedEncodingException e){
+            return new ResponseEntity<ErrorDto>(new ErrorDto(Instant.now(), HttpStatus.UNAUTHORIZED.value(),
+                    e.getMessage()), HttpStatus.UNAUTHORIZED);
         }
 
     }
@@ -46,11 +44,11 @@ public class LoginController {
             LoginResponseDto responseDto = service.loginUser(dto);
             return new ResponseEntity<LoginResponseDto>(responseDto, HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<UserNotFoundException>(e, HttpStatus.NOT_FOUND);
-        } catch (GeneralSecurityException e){
-            return new ResponseEntity<GeneralSecurityException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (UnsupportedEncodingException e){
-            return new ResponseEntity<UnsupportedEncodingException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<ErrorDto>(new ErrorDto(Instant.now(), HttpStatus.NOT_FOUND.value(),
+                    e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (GeneralSecurityException | UnsupportedEncodingException e){
+            return new ResponseEntity<ErrorDto>(new ErrorDto(Instant.now(), HttpStatus.UNAUTHORIZED.value(),
+                    e.getMessage()), HttpStatus.UNAUTHORIZED);
         }
     }
 
