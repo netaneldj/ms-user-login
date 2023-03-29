@@ -1,17 +1,22 @@
 package com.jamilis.login.controller;
 
+import com.jamilis.login.dto.LoginRequestDto;
+import com.jamilis.login.dto.LoginResponseDto;
 import com.jamilis.login.dto.SignUpRequestDto;
 import com.jamilis.login.dto.SignUpResponseDto;
 import com.jamilis.login.exception.UserAlreadyExistException;
+import com.jamilis.login.exception.UserNotFoundException;
 import com.jamilis.login.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
 @RestController
@@ -29,6 +34,23 @@ public class LoginController {
             return new ResponseEntity<UserAlreadyExistException>(e, HttpStatus.NOT_FOUND);
         } catch (GeneralSecurityException e){
             return new ResponseEntity<GeneralSecurityException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (UnsupportedEncodingException e){
+            return new ResponseEntity<UnsupportedEncodingException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody @Valid LoginRequestDto dto) {
+        try {
+            LoginResponseDto responseDto = service.loginUser(dto);
+            return new ResponseEntity<LoginResponseDto>(responseDto, HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<UserNotFoundException>(e, HttpStatus.NOT_FOUND);
+        } catch (GeneralSecurityException e){
+            return new ResponseEntity<GeneralSecurityException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (UnsupportedEncodingException e){
+            return new ResponseEntity<UnsupportedEncodingException>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

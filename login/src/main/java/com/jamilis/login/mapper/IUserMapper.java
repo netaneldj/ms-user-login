@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
 @Mapper(uses = IPhoneMapper.class)
@@ -19,11 +20,11 @@ public interface IUserMapper {
     @Mapping(target = "lastLogin", expression = "java(java.time.Instant.now())")
     @Mapping(target = "token", expression = "java(com.jamilis.login.utils.JwtUtils.generateJwt(dto.getEmail()))")
     @Mapping(target = "isActive", constant = "true")
-    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.encrypt(dto.getPassword()))")
-    UserEntity mapToEntity(SignUpRequestDto dto) throws GeneralSecurityException;
+    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.encrypt(dto.getPassword(), dto.getEmail()))")
+    UserEntity mapToEntity(SignUpRequestDto dto) throws GeneralSecurityException, UnsupportedEncodingException;
 
     SignUpResponseDto mapToSignUpResponse(UserEntity entity);
 
-    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.decrypt(entity.getPassword()))")
-    LoginResponseDto mapToLoginResponse(UserEntity entity) throws GeneralSecurityException;
+    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.decrypt(entity.getPassword(), entity.getEmail()))")
+    LoginResponseDto mapToLoginResponse(UserEntity entity) throws GeneralSecurityException, UnsupportedEncodingException;
 }
