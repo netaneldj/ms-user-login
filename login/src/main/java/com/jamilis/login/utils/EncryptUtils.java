@@ -26,7 +26,8 @@ public class EncryptUtils {
         secretKeySpec = new SecretKeySpec(key, SECRET_KEY_ALGORITHM);
     }
 
-    public static String encrypt(final String strToEncrypt, final String secret) throws GeneralSecurityException, UnsupportedEncodingException {
+    public static String encrypt(final String strToEncrypt, final String secret) throws GeneralSecurityException,
+            UnsupportedEncodingException {
         setKey(secret);
         Cipher cipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
@@ -34,7 +35,8 @@ public class EncryptUtils {
                 .encodeToString(cipher.doFinal(strToEncrypt.getBytes(ENCODING)));
     }
 
-    public static String decrypt(final String strToDecrypt, final String secret) throws GeneralSecurityException, UnsupportedEncodingException {
+    public static String decrypt(final String strToDecrypt, final String secret) throws GeneralSecurityException,
+            UnsupportedEncodingException {
         setKey(secret);
         Cipher cipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @Service
@@ -24,7 +23,8 @@ public class LoginService implements ILoginService{
     private IUserRepository repository;
 
     @Override
-    public SignUpResponseDto signUpUser(SignUpRequestDto signUpRequestDto) throws GeneralSecurityException, UnsupportedEncodingException, UserAlreadyExistException {
+    public SignUpResponseDto signUpUser(SignUpRequestDto signUpRequestDto) throws GeneralSecurityException,
+            UnsupportedEncodingException, UserAlreadyExistException {
         if (repository.findByEmail(signUpRequestDto.getEmail()).isPresent()) throw new UserAlreadyExistException();
         UserEntity signUpRequestEntity = IUserMapper.INSTANCE.mapToEntity(signUpRequestDto);
         UserEntity userCreated = repository.save(signUpRequestEntity);
@@ -32,7 +32,8 @@ public class LoginService implements ILoginService{
     }
 
     @Override
-    public LoginResponseDto loginUser(LoginRequestDto loginRequestDto) throws GeneralSecurityException, UnsupportedEncodingException, UserNotFoundException {
+    public LoginResponseDto loginUser(LoginRequestDto loginRequestDto) throws GeneralSecurityException,
+            UnsupportedEncodingException, UserNotFoundException {
         Optional<UserEntity> optionalUserEntity = repository.findByToken(loginRequestDto.getToken());
         if (!optionalUserEntity.isPresent()) throw new UserNotFoundException();
         return IUserMapper.INSTANCE.mapToLoginResponse(optionalUserEntity.get());

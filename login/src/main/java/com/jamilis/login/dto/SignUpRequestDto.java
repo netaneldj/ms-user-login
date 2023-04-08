@@ -1,6 +1,8 @@
 package com.jamilis.login.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -8,11 +10,14 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignUpRequestDto {
     private String name;
     @NotNull
     @NotEmpty
-    @Pattern(regexp="^[a-z]+@[a-z]+.[a-z]{2,6}$", message="Invalid email format. Email format must be like: aaaaaaa@undominio.algo")
+    @Pattern(regexp="^[a-z]+@[a-z]+.[a-z]{2,6}$",
+            message="Invalid email format. Email format must be like: aaaaaaa@undominio.algo")
     private String email;
     @NotNull
     @NotEmpty

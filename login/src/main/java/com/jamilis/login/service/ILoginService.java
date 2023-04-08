@@ -12,8 +12,8 @@ import java.security.GeneralSecurityException;
 
 public interface ILoginService {
     SignUpResponseDto signUpUser(SignUpRequestDto signUpRequestDto) throws GeneralSecurityException,
-            UserAlreadyExistException, UnsupportedEncodingException;
+            UnsupportedEncodingException, UserAlreadyExistException;
 
-    LoginResponseDto loginUser(LoginRequestDto loginRequestDto) throws GeneralSecurityException,
-            UserNotFoundException, UnsupportedEncodingException;
+    LoginResponseDto loginUser(LoginRequestDto loginRequestDto) throws UserNotFoundException, GeneralSecurityException,
+            UnsupportedEncodingException;
 }

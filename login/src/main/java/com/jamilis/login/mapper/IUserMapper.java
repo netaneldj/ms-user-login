@@ -20,7 +20,8 @@ public interface IUserMapper {
     @Mapping(target = "lastLogin", expression = "java(java.time.Instant.now())")
     @Mapping(target = "token", expression = "java(com.jamilis.login.utils.JwtUtils.generateJwt(dto.getEmail()))")
     @Mapping(target = "isActive", constant = "true")
-    @Mapping(target = "password", expression = "java(com.jamilis.login.utils.EncryptUtils.encrypt(dto.getPassword(), dto.getEmail()))")
+    @Mapping(target = "password",
+            expression = "java(com.jamilis.login.utils.EncryptUtils.encrypt(dto.getPassword(), dto.getEmail()))")
     UserEntity mapToEntity(SignUpRequestDto dto) throws GeneralSecurityException, UnsupportedEncodingException;
 
     SignUpResponseDto mapToSignUpResponse(UserEntity entity);
