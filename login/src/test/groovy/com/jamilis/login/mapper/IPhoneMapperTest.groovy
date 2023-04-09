@@ -1,13 +1,12 @@
 package com.jamilis.login.mapper
 
-import com.jamilis.login.dto.PhoneDto
-import com.jamilis.login.entity.PhoneEntity
+import com.jamilis.login.constants.PhoneConstants
 import spock.lang.Specification
 
 class IPhoneMapperTest extends Specification {
     def "MapDto"() {
         given:
-        def phoneDto = new PhoneDto(23456789, 11, "AR")
+        def phoneDto = PhoneConstants.PHONE_DTO
         when:
         def phoneEntity = IPhoneMapper.INSTANCE.mapDto(phoneDto)
         then:
@@ -18,7 +17,7 @@ class IPhoneMapperTest extends Specification {
 
     def "MapEntity"() {
         given:
-        def phoneEntity = new PhoneEntity(1, UUID.randomUUID().toString(), 23456789, 11, "AR")
+        def phoneEntity = PhoneConstants.PHONE_ENTITY
         when:
         def phoneDto = IPhoneMapper.INSTANCE.mapEntity(phoneEntity)
         then:
@@ -29,7 +28,7 @@ class IPhoneMapperTest extends Specification {
 
     def "MapDtoList"() {
         given:
-        def phoneEntityList = [new PhoneEntity(1, UUID.randomUUID().toString(), 23456789, 11, "AR")]
+        def phoneEntityList = PhoneConstants.PHONE_ENTITY_LIST
         when:
         def phoneDtoList = IPhoneMapper.INSTANCE.mapEntityList(phoneEntityList)
         then:
@@ -42,7 +41,7 @@ class IPhoneMapperTest extends Specification {
 
     def "MapEntityList"() {
         given:
-        def phoneDtoList = [new PhoneDto(12345678, 11, "AR")]
+        def phoneDtoList = PhoneConstants.PHONE_DTO_LIST
         when:
         def phoneEntityList = IPhoneMapper.INSTANCE.mapDtoList(phoneDtoList)
         then:

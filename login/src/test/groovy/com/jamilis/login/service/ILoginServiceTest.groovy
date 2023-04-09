@@ -1,9 +1,8 @@
 package com.jamilis.login.service
 
 import com.jamilis.login.LoginApplication
+import com.jamilis.login.constants.UserConstants
 import com.jamilis.login.dto.LoginRequestDto
-import com.jamilis.login.dto.PhoneDto
-import com.jamilis.login.dto.SignUpRequestDto
 import com.jamilis.login.exception.UserAlreadyExistException
 import com.jamilis.login.exception.UserNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,7 +16,7 @@ class ILoginServiceTest extends Specification {
 
     def "sign up user ok"(){
         given:
-        def signUpUserRequestDto = new SignUpRequestDto("Test01", "firsttest@email.com", "T01password", [new PhoneDto(12345678, 11, "AR")])
+        def signUpUserRequestDto = UserConstants.SIGN_UP_REQUEST_DTO
         when:
         def response = loginService.signUpUser(signUpUserRequestDto)
         then:
@@ -33,7 +32,7 @@ class ILoginServiceTest extends Specification {
     }
 
     def "sign up throws user already exist exception"(){
-        def signUpRequestDto = new SignUpRequestDto("Test02", "secondtest@email.com", "a2asfGfdfdf4", [new PhoneDto(123L, 456, "AR")])
+        def signUpRequestDto = UserConstants.SIGN_UP_REQUEST_DTO
         when:
         loginService.signUpUser(signUpRequestDto)
         loginService.signUpUser(signUpRequestDto)
@@ -43,7 +42,7 @@ class ILoginServiceTest extends Specification {
 
     def "login user ok" (){
         given:
-        def signUpUserRequestDto = new SignUpRequestDto("name", "test7@mail.com", "a2asfGfdfdf4", [new PhoneDto(123L, 456, "AR")])
+        def signUpUserRequestDto = UserConstants.SIGN_UP_REQUEST_DTO2
         def signUpUserResponseDto = loginService.signUpUser(signUpUserRequestDto)
         when:
         def loginResponseDto = loginService.loginUser(new LoginRequestDto(signUpUserResponseDto.token));

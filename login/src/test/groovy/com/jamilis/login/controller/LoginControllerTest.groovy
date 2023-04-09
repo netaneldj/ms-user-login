@@ -2,7 +2,10 @@ package com.jamilis.login.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jamilis.login.LoginApplication
-import com.jamilis.login.dto.*
+import com.jamilis.login.constants.UserConstants
+import com.jamilis.login.dto.LoginRequestDto
+import com.jamilis.login.dto.LoginResponseDto
+import com.jamilis.login.dto.SignUpResponseDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -21,8 +24,7 @@ class LoginControllerTest extends spock.lang.Specification {
 
     def "sign up user valid"() {
         given:
-        def signUpUserRequestDto = new SignUpRequestDto("Test01", "firsttest@email.com", "T01password",
-                [new PhoneDto(12345678, 11, "AR")])
+        def signUpUserRequestDto = UserConstants.SIGN_UP_REQUEST_DTO
         when:
         def response = objectMapper.readValue(mockMvc.perform(MockMvcRequestBuilders.post("/sign-up")
                 .content(objectMapper.writeValueAsString(signUpUserRequestDto))
@@ -43,8 +45,7 @@ class LoginControllerTest extends spock.lang.Specification {
 
     def "login user"() {
         given:
-        def signUpUserRequestDto = new SignUpRequestDto("Test02", "secondtest@email.com", "T02password",
-                [new PhoneDto(23456789, 11, "AR")])
+        def signUpUserRequestDto = UserConstants.SIGN_UP_REQUEST_DTO2
         def signUpResponse = objectMapper.readValue(mockMvc.perform(MockMvcRequestBuilders.post("/sign-up")
                 .content(objectMapper.writeValueAsString(signUpUserRequestDto))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))

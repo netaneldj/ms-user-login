@@ -1,20 +1,13 @@
 package com.jamilis.login.mapper
 
-import com.jamilis.login.dto.PhoneDto
-import com.jamilis.login.dto.SignUpRequestDto
-import com.jamilis.login.entity.PhoneEntity
-import com.jamilis.login.entity.UserEntity
+import com.jamilis.login.constants.UserConstants
 import com.jamilis.login.utils.EncryptUtils
-import com.jamilis.login.utils.JwtUtils
 import spock.lang.Specification
-
-import java.time.Instant
 
 class IUserMapperTest extends Specification {
     def "MapToEntity"() {
         given:
-        def signUpRequestDto = new SignUpRequestDto("Test01", "firsttest@email.com", "T01password",
-                [new PhoneDto(12345678, 11, "AR")])
+        def signUpRequestDto = UserConstants.SIGN_UP_REQUEST_DTO
         when:
         def userEntity = IUserMapper.INSTANCE.mapToEntity(signUpRequestDto)
         then:
@@ -31,7 +24,7 @@ class IUserMapperTest extends Specification {
 
     def "MapToSignUpResponse"() {
         given:
-        def userEntity = new UserEntity(UUID.randomUUID().toString(), Instant.now(), Instant.now(), JwtUtils.generateJwt("test01@email.com"), true, "Test01", "test01@email.com", EncryptUtils.encrypt("T01password", "test01@email.com"), [new PhoneEntity(1, UUID.randomUUID().toString(), 23456789, 11, "AR")])
+        def userEntity = UserConstants.USER_ENTITY
         when:
         def signUpResponseDto = IUserMapper.INSTANCE.mapToSignUpResponse(userEntity)
         then:
@@ -44,7 +37,7 @@ class IUserMapperTest extends Specification {
 
     def "MapToLoginResponse"() {
         given:
-        def userEntity = new UserEntity(UUID.randomUUID().toString(), Instant.now(), Instant.now(), JwtUtils.generateJwt("test01@email.com"), true, "Test01", "test01@email.com", EncryptUtils.encrypt("T01password", "test01@email.com"), [new PhoneEntity(1, UUID.randomUUID().toString(), 23456789, 11, "AR")])
+        def userEntity = UserConstants.USER_ENTITY
         when:
         def loginResponseDto = IUserMapper.INSTANCE.mapToLoginResponse(userEntity)
         then:
