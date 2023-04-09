@@ -9,6 +9,7 @@ import com.jamilis.login.entity.UserEntity;
 import com.jamilis.login.exception.UserAlreadyExistException;
 import com.jamilis.login.exception.UserNotFoundException;
 import com.jamilis.login.mapper.IUserMapper;
+import com.jamilis.login.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,8 @@ public class LoginService implements ILoginService {
             UnsupportedEncodingException, UserNotFoundException {
         Optional<UserEntity> optionalUserEntity = repository.findByToken(loginRequestDto.getToken());
         if (!optionalUserEntity.isPresent()) throw new UserNotFoundException();
-        return IUserMapper.INSTANCE.mapToLoginResponse(optionalUserEntity.get());
+        UserEntity userEntity = optionalUserEntity.get();
+        userEntity.setToken(JwtUtils.generateJwt(userEntity.getEmail()));
+        return IUserMapper.INSTANCE.mapToLoginResponse(repository.save(userEntity));
     }
 }
