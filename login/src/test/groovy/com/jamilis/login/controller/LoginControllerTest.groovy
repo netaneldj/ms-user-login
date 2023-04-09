@@ -19,7 +19,7 @@ class LoginControllerTest extends spock.lang.Specification {
     @Autowired
     ObjectMapper objectMapper
 
-    def "SignUpUser"() {
+    def "sign up user valid"() {
         given:
         def signUpUserRequestDto = new SignUpRequestDto("Test01", "firsttest@email.com", "T01password",
                 [new PhoneDto(12345678, 11, "AR")])
@@ -41,7 +41,7 @@ class LoginControllerTest extends spock.lang.Specification {
         }
     }
 
-    def "LoginUser"() {
+    def "login user"() {
         given:
         def signUpUserRequestDto = new SignUpRequestDto("Test02", "secondtest@email.com", "T02password",
                 [new PhoneDto(23456789, 11, "AR")])
