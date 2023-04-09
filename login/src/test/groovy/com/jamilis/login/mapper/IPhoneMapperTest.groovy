@@ -32,7 +32,7 @@ class IPhoneMapperTest extends Specification {
         when:
         def phoneDtoList = IPhoneMapper.INSTANCE.mapEntityList(phoneEntityList)
         then:
-        for(int i=0; i<phoneDtoList.size(); i++){
+        for (int i = 0; i < phoneDtoList.size(); i++) {
             phoneEntityList.get(i).getNumber().equals(phoneDtoList.get(i).getNumber())
             phoneEntityList.get(i).cityCode.equals(phoneDtoList.get(i).getCityCode())
             phoneEntityList.get(i).countryCode.equals(phoneDtoList.get(i).getCountryCode())
@@ -45,7 +45,7 @@ class IPhoneMapperTest extends Specification {
         when:
         def phoneEntityList = IPhoneMapper.INSTANCE.mapDtoList(phoneDtoList)
         then:
-        for(int i=0; i<phoneEntityList.size(); i++){
+        for (int i = 0; i < phoneEntityList.size(); i++) {
             phoneEntityList.get(i).getNumber().equals(phoneDtoList.get(i).getNumber())
             phoneEntityList.get(i).cityCode.equals(phoneDtoList.get(i).getCityCode())
             phoneEntityList.get(i).countryCode.equals(phoneDtoList.get(i).getCountryCode())

@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class JwtUtils {
@@ -18,7 +17,7 @@ public class JwtUtils {
                     .withIssuedAt(Instant.now())
                     .withExpiresAt(Instant.now().plusSeconds(3600))
                     .sign(Algorithm.HMAC256("secret"));
-        } catch (JWTCreationException e){
+        } catch (JWTCreationException e) {
             throw e;
         }
     }

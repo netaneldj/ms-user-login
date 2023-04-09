@@ -1,6 +1,6 @@
 package com.jamilis.login.utils;
 
-import javax.crypto.*;
+import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -17,7 +17,7 @@ public class EncryptUtils {
     private static SecretKeySpec secretKeySpec;
     private static byte[] key;
 
-    private static void setKey (final String myKey) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    private static void setKey(final String myKey) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest sha = null;
         key = myKey.getBytes(ENCODING);
         sha = MessageDigest.getInstance(SHA);

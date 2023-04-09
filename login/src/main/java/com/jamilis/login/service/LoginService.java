@@ -17,7 +17,7 @@ import java.security.GeneralSecurityException;
 import java.util.Optional;
 
 @Service
-public class LoginService implements ILoginService{
+public class LoginService implements ILoginService {
 
     @Autowired
     private IUserRepository repository;

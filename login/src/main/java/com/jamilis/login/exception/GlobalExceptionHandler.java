@@ -17,20 +17,20 @@ public class GlobalExceptionHandler {
     Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(UserAlreadyExistException.class)
-    public ResponseEntity<Object> handleUserAlreadyExistException(Exception e){
+    public ResponseEntity<Object> handleUserAlreadyExistException(Exception e) {
         ErrorMessage errorMessage = new ErrorMessage(Instant.now(), HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> handleUserNotFoundException(Exception e){
+    public ResponseEntity<Object> handleUserNotFoundException(Exception e) {
         ErrorMessage errorMessage = new ErrorMessage(Instant.now(), HttpStatus.NOT_FOUND.value(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({GeneralSecurityException.class, UnsupportedEncodingException.class,
             NoSuchAlgorithmException.class})
-    public ResponseEntity<Object> handleEncryptException(Exception e){
+    public ResponseEntity<Object> handleEncryptException(Exception e) {
         ErrorMessage errorMessage = new ErrorMessage(Instant.now(), HttpStatus.UNAUTHORIZED.value(), e.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
     }

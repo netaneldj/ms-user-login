@@ -16,8 +16,8 @@ public class SignUpRequestDto {
     private String name;
     @NotNull
     @NotEmpty
-    @Pattern(regexp="^[a-z]+@[a-z]+.[a-z]{2,6}$",
-            message="Invalid email format. Email format must be like: aaaaaaa@undominio.algo")
+    @Pattern(regexp = "^[a-z]+@[a-z]+.[a-z]{2,6}$",
+            message = "Invalid email format. Email format must be like: aaaaaaa@undominio.algo")
     private String email;
     @NotNull
     @NotEmpty

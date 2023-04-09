@@ -34,7 +34,7 @@ class LoginControllerTest extends spock.lang.Specification {
                 .contentAsString, SignUpResponseDto)
 
         then:
-        with(response){
+        with(response) {
             id != null
             created != null
             lastLogin != null
@@ -61,7 +61,7 @@ class LoginControllerTest extends spock.lang.Specification {
                 .response
                 .contentAsString, LoginResponseDto)
         then:
-        with(response){
+        with(response) {
             id == signUpResponse.getId()
             created == signUpResponse.getCreated()
             lastLogin == signUpResponse.getLastLogin()

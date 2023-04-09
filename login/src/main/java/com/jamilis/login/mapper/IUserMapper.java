@@ -13,7 +13,7 @@ import java.security.GeneralSecurityException;
 
 @Mapper(uses = IPhoneMapper.class)
 public interface IUserMapper {
-    IUserMapper INSTANCE = Mappers.getMapper( IUserMapper.class );
+    IUserMapper INSTANCE = Mappers.getMapper(IUserMapper.class);
 
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
     @Mapping(target = "created", expression = "java(java.time.Instant.now())")

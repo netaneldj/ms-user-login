@@ -14,14 +14,14 @@ class ILoginServiceTest extends Specification {
     @Autowired
     private LoginService loginService
 
-    def "sign up user ok"(){
+    def "sign up user ok"() {
         given:
         def signUpUserRequestDto = UserConstants.SIGN_UP_REQUEST_DTO
         when:
         def response = loginService.signUpUser(signUpUserRequestDto)
         then:
         noExceptionThrown()
-        with(response){
+        with(response) {
             id != null
             created != null
             lastLogin != null
@@ -31,7 +31,7 @@ class ILoginServiceTest extends Specification {
 
     }
 
-    def "sign up throws user already exist exception"(){
+    def "sign up throws user already exist exception"() {
         def signUpRequestDto = UserConstants.SIGN_UP_REQUEST_DTO
         when:
         loginService.signUpUser(signUpRequestDto)
@@ -40,7 +40,7 @@ class ILoginServiceTest extends Specification {
         thrown(UserAlreadyExistException)
     }
 
-    def "login user ok" (){
+    def "login user ok"() {
         given:
         def signUpUserRequestDto = UserConstants.SIGN_UP_REQUEST_DTO2
         def signUpUserResponseDto = loginService.signUpUser(signUpUserRequestDto)
@@ -48,7 +48,7 @@ class ILoginServiceTest extends Specification {
         def loginResponseDto = loginService.loginUser(new LoginRequestDto(signUpUserResponseDto.token));
         then:
         noExceptionThrown()
-        with(loginResponseDto){
+        with(loginResponseDto) {
             id == signUpUserResponseDto.getId()
             created == signUpUserResponseDto.getCreated()
             lastLogin == signUpUserResponseDto.getLastLogin()
@@ -60,7 +60,7 @@ class ILoginServiceTest extends Specification {
         }
     }
 
-    def "login throws user not found exception" (){
+    def "login throws user not found exception"() {
         given:
         def loginRequestDto = new LoginRequestDto("fakeToken")
         when:

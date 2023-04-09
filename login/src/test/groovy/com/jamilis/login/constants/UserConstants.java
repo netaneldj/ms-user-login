@@ -1,8 +1,6 @@
 package com.jamilis.login.constants;
 
-import com.jamilis.login.dto.PhoneDto;
 import com.jamilis.login.dto.SignUpRequestDto;
-import com.jamilis.login.entity.PhoneEntity;
 import com.jamilis.login.entity.UserEntity;
 import com.jamilis.login.utils.EncryptUtils;
 import com.jamilis.login.utils.JwtUtils;
