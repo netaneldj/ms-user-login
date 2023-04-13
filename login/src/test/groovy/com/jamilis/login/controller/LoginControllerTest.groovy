@@ -64,8 +64,8 @@ class LoginControllerTest extends spock.lang.Specification {
         with(response) {
             id == signUpResponse.getId()
             created == signUpResponse.getCreated()
-            lastLogin == signUpResponse.getLastLogin()
-            token == signUpResponse.getToken()
+            lastLogin != signUpResponse.getLastLogin()
+            token != signUpResponse.getToken()
             isActive == true
             name == signUpUserRequestDto.getName()
             password == signUpUserRequestDto.getPassword()

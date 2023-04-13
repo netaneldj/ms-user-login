@@ -51,8 +51,8 @@ class ILoginServiceTest extends Specification {
         with(loginResponseDto) {
             id == signUpUserResponseDto.getId()
             created == signUpUserResponseDto.getCreated()
-            lastLogin == signUpUserResponseDto.getLastLogin()
-            token == signUpUserResponseDto.getToken()
+            lastLogin != signUpUserResponseDto.getLastLogin()
+            token != signUpUserResponseDto.getToken()
             isActive == true
             name == signUpUserRequestDto.getName()
             password == signUpUserRequestDto.getPassword()
