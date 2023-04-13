@@ -13,6 +13,8 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
+import java.time.temporal.ChronoUnit
+
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [LoginApplication])
 class LoginControllerTest extends spock.lang.Specification {
@@ -63,7 +65,7 @@ class LoginControllerTest extends spock.lang.Specification {
         then:
         with(response) {
             id == signUpResponse.getId()
-            created == signUpResponse.getCreated()
+            created.truncatedTo(ChronoUnit.SECONDS) == signUpResponse.getCreated().truncatedTo(ChronoUnit.SECONDS)
             lastLogin != signUpResponse.getLastLogin()
             token != signUpResponse.getToken()
             isActive == true

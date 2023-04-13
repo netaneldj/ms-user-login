@@ -24,6 +24,7 @@ public class JwtUtils {
             throw e;
         }
     }
+
     public static DecodedJWT decodedJWT(String token) {
         return JWT.decode(token);
     }

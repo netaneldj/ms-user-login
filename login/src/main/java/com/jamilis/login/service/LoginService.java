@@ -28,7 +28,8 @@ public class LoginService implements ILoginService {
     @Override
     public SignUpResponseDto signUpUser(SignUpRequestDto signUpRequestDto) throws GeneralSecurityException,
             UnsupportedEncodingException, UserAlreadyExistException {
-        if (repository.findByEmailAndIsActiveTrue(signUpRequestDto.getEmail()).isPresent()) throw new UserAlreadyExistException();
+        if (repository.findByEmailAndIsActiveTrue(signUpRequestDto.getEmail()).isPresent())
+            throw new UserAlreadyExistException();
         UserEntity signUpRequestEntity = IUserMapper.INSTANCE.mapToEntity(signUpRequestDto);
         UserEntity userCreated = repository.save(signUpRequestEntity);
         return IUserMapper.INSTANCE.mapToSignUpResponse(userCreated);

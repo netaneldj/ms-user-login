@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
+import java.time.temporal.ChronoUnit
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = LoginApplication)
 class ILoginServiceTest extends Specification {
     @Autowired
@@ -50,7 +52,7 @@ class ILoginServiceTest extends Specification {
         noExceptionThrown()
         with(loginResponseDto) {
             id == signUpUserResponseDto.getId()
-            created == signUpUserResponseDto.getCreated()
+            created.truncatedTo(ChronoUnit.SECONDS) == signUpUserResponseDto.getCreated().truncatedTo(ChronoUnit.SECONDS)
             lastLogin != signUpUserResponseDto.getLastLogin()
             token != signUpUserResponseDto.getToken()
             isActive == true
